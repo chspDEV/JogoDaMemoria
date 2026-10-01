@@ -17,7 +17,23 @@ class GameActivity : AppCompatActivity() {
     private var foundPairs = 0
     private lateinit var txtMoves: TextView
     private lateinit var txtPairs: TextView
+    private lateinit var txtTime: TextView
     private lateinit var gridLayout: GridLayout
+    
+    private lateinit var soundPool: android.media.SoundPool
+    private var soundFlip = 0
+    private var soundMatch = 0
+    private var soundError = 0
+    
+    private var timeInSeconds = 0
+    private var timerHandler = Handler(Looper.getMainLooper())
+    private var timerRunnable = object : Runnable {
+        override fun run() {
+            timeInSeconds++
+            txtTime.text = getString(R.string.txt_time, timeInSeconds)
+            timerHandler.postDelayed(this, 1000)
+        }
+    }
 
     private val images = listOf(
         R.drawable.carta_3_sushi,
@@ -44,10 +60,26 @@ class GameActivity : AppCompatActivity() {
 
         txtMoves = findViewById(R.id.txtMoves)
         txtPairs = findViewById(R.id.txtPairs)
+        txtTime = findViewById(R.id.txtTime)
         gridLayout = findViewById(R.id.gridLayout)
 
         updateStats()
         setupBoard()
+        
+        val audioAttributes = android.media.AudioAttributes.Builder()
+            .setUsage(android.media.AudioAttributes.USAGE_GAME)
+            .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+        soundPool = android.media.SoundPool.Builder()
+            .setMaxStreams(5)
+            .setAudioAttributes(audioAttributes)
+            .build()
+            
+        soundFlip = soundPool.load(this, R.raw.sfx_virar_carta, 1)
+        soundMatch = soundPool.load(this, R.raw.sfx_acertar, 1)
+        soundError = soundPool.load(this, R.raw.sfx_errar, 1)
+
+        timerHandler.postDelayed(timerRunnable, 1000)
     }
 
     private fun updateStats() {
@@ -102,6 +134,7 @@ class GameActivity : AppCompatActivity() {
 
         val imgRes = view.getTag(R.id.tag_image_res) as Int
         view.setImageResource(imgRes)
+        soundPool.play(soundFlip, 1f, 1f, 0, 0, 1f)
 
         if (firstSelected == null) {
             firstSelected = view
@@ -114,6 +147,7 @@ class GameActivity : AppCompatActivity() {
             val firstImgRes = firstSelected?.getTag(R.id.tag_image_res) as Int
             if (firstImgRes == imgRes) {
                 // Match
+                soundPool.play(soundMatch, 1f, 1f, 0, 0, 1f)
                 firstSelected?.setTag(R.id.tag_is_matched, true)
                 view.setTag(R.id.tag_is_matched, true)
                 foundPairs++
@@ -127,6 +161,7 @@ class GameActivity : AppCompatActivity() {
                 }
             } else {
                 // No match
+                soundPool.play(soundError, 1f, 1f, 0, 0, 1f)
                 Handler(Looper.getMainLooper()).postDelayed({
                     firstSelected?.setImageResource(backImage)
                     view.setImageResource(backImage)
@@ -139,6 +174,16 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun endGame() {
+        timerHandler.removeCallbacks(timerRunnable)
+        
+        val score = 100000 / (moves * maxOf(1, timeInSeconds))
+        
+        val prefs = getSharedPreferences("MemoryGame", android.content.Context.MODE_PRIVATE)
+        val highScore = prefs.getInt("HIGH_SCORE", 0)
+        if (score > highScore) {
+            prefs.edit().putInt("HIGH_SCORE", score).apply()
+        }
+
         val difficultyStr = when (cardCount) {
             8 -> getString(R.string.diff_easy)
             12 -> getString(R.string.diff_medium)
@@ -147,8 +192,16 @@ class GameActivity : AppCompatActivity() {
         val intent = Intent(this, ResultActivity::class.java).apply {
             putExtra("MOVES", moves)
             putExtra("DIFFICULTY", difficultyStr)
+            putExtra("TIME", timeInSeconds)
+            putExtra("SCORE", score)
         }
         startActivity(intent)
         finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timerHandler.removeCallbacks(timerRunnable)
+        soundPool.release()
     }
 }

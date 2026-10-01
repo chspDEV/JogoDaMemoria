@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -28,6 +29,22 @@
         android:layout_height="wrap_content"
         android:text="Movimentos: "
         android:textSize="20sp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/txtResultTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tempo: "
+        android:textSize="20sp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/txtResultScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pontuação: "
+        android:textSize="20sp"
         android:layout_marginBottom="48dp" />
 
     <Button
@@ -35,12 +52,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_play_again"
+        app:backgroundTint="#2da1eb"
         android:layout_marginBottom="16dp" />
 
     <Button
         android:id="@+id/btnMainMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:backgroundTint="#2da1eb"
         android:text="@string/btn_main_menu" />
 
 </LinearLayout>

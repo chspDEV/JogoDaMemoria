@@ -21,9 +21,17 @@
 
         <TextView
             android:id="@+id/txtPairs"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Pares: 0 / 4"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tempo: 0s"
             android:textSize="18sp" />
     </LinearLayout>
 

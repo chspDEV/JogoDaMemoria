@@ -3,17 +3,21 @@
     <string name="title_main">Jogo da Memória</string>
     <string name="btn_start">Começar</string>
     <string name="title_config">Escolha a Dificuldade</string>
-    <string name="btn_easy">Fácil (8 cartas)</string>
-    <string name="btn_medium">Médio (12 cartas)</string>
-    <string name="btn_hard">Difícil (16 cartas)</string>
+    <string name="btn_easy">Fácil</string>
+    <string name="btn_medium">Médio</string>
+    <string name="btn_hard">Difícil</string>
     <string name="txt_moves">Movimentos: %d</string>
     <string name="txt_pairs">Pares: %1$d / %2$d</string>
-    <string name="title_result">Fim de Jogo!</string>
+    <string name="title_result">Vitória!</string>
     <string name="txt_result_difficulty">Dificuldade: %s</string>
     <string name="txt_result_moves">Total de Movimentos: %d</string>
+    <string name="txt_result_time">Tempo total: %ds</string>
+    <string name="txt_result_score">Pontuação final: %d</string>
     <string name="btn_play_again">Jogar Novamente</string>
     <string name="btn_main_menu">Menu Inicial</string>
     <string name="diff_easy">Fácil</string>
     <string name="diff_medium">Médio</string>
     <string name="diff_hard">Difícil</string>
+    <string name="txt_time">Tempo: %ds</string>
+    <string name="txt_high_score">Melhor Pontuação: %d</string>
 </resources>

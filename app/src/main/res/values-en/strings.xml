@@ -3,17 +3,21 @@
     <string name="title_main">Memory Game</string>
     <string name="btn_start">Start</string>
     <string name="title_config">Choose Difficulty</string>
-    <string name="btn_easy">Easy (8 cards)</string>
-    <string name="btn_medium">Medium (12 cards)</string>
-    <string name="btn_hard">Hard (16 cards)</string>
+    <string name="btn_easy">Easy</string>
+    <string name="btn_medium">Medium</string>
+    <string name="btn_hard">Hard</string>
     <string name="txt_moves">Moves: %d</string>
     <string name="txt_pairs">Pairs: %1$d / %2$d</string>
-    <string name="title_result">Game Over!</string>
+    <string name="title_result">Victory!</string>
     <string name="txt_result_difficulty">Difficulty: %s</string>
     <string name="txt_result_moves">Total Moves: %d</string>
+    <string name="txt_result_time">Total Time: %ds</string>
+    <string name="txt_result_score">Final Score: %d</string>
     <string name="btn_play_again">Play Again</string>
     <string name="btn_main_menu">Main Menu</string>
     <string name="diff_easy">Easy</string>
     <string name="diff_medium">Medium</string>
     <string name="diff_hard">Hard</string>
+    <string name="txt_time">Time: %ds</string>
+    <string name="txt_high_score">High Score: %d</string>
 </resources>
