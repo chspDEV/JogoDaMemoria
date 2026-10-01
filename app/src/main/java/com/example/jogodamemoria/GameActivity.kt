@@ -99,7 +99,7 @@ class GameActivity : AppCompatActivity() {
         val marginPx = (8 * density).toInt()   // card margins
         val screenWidth = displayMetrics.widthPixels
         
-        // 4 columns, total margin per column is 2 * marginPx
+        // 4 colunas, margem total por coluna e 2 * marginPx
         val availableWidth = screenWidth - (paddingPx * 2) - (marginPx * 2 * 4)
         val cardSize = availableWidth / 4
         
@@ -146,7 +146,7 @@ class GameActivity : AppCompatActivity() {
             
             val firstImgRes = firstSelected?.getTag(R.id.tag_image_res) as Int
             if (firstImgRes == imgRes) {
-                // Match
+                // Acertou!!!
                 soundPool.play(soundMatch, 1f, 1f, 0, 0, 1f)
                 firstSelected?.setTag(R.id.tag_is_matched, true)
                 view.setTag(R.id.tag_is_matched, true)
@@ -160,7 +160,7 @@ class GameActivity : AppCompatActivity() {
                     endGame()
                 }
             } else {
-                // No match
+                // errou :(
                 soundPool.play(soundError, 1f, 1f, 0, 0, 1f)
                 Handler(Looper.getMainLooper()).postDelayed({
                     firstSelected?.setImageResource(backImage)
